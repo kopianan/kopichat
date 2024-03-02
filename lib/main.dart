@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kopichat/injectable.dart';
 import 'package:kopichat/presentation/app.dart';
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized() ; 
+  configureDependencies(); 
   runApp(const App());
 }
  
