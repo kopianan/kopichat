@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDL_OwQgDiql5xCyz3XmJzUHWaXOkq-7KM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>695524442153</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.kopichat.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>kopichat-d6a07</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kopichat-d6a07.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:695524442153:ios:d111fd62aa9d2875e25c38</string>
+</dict>
+</plist>
