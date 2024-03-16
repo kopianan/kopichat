@@ -27,13 +27,15 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
-dependencies: 
+dependencies:
   auto_route: ^7.8.4
   cupertino_icons: ^1.0.6
+  firebase_auth: ^4.17.8
   firebase_core: ^2.25.5
   flutter:
     sdk: flutter
   get_it: ^7.6.7
+  google_sign_in: ^6.2.1
   injectable: ^2.3.2
 
 dev_dependencies:
