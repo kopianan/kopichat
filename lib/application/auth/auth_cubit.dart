@@ -12,6 +12,16 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authReposiotry) : super(AuthState.initial());
   final AuthReposiotry authReposiotry;
 
+  void signInWithGoogle() async {
+    emit(AuthState.loading());
+    final result = await authReposiotry.signInWithGoogle();
+    //error / success
+    result.fold(
+      (l) => emit(AuthState.error(l)),
+      (r) => emit(AuthState.success(r)),
+    );
+  }
+
   void signInWithEmail(String email, String password) async {
     emit(AuthState.loading());
     final result = await authReposiotry.signInWithEmailAndPassword(
@@ -19,12 +29,8 @@ class AuthCubit extends Cubit<AuthState> {
     //error / success
 
     result.fold(
-      (l) {
-        emit(AuthState.error(l));
-      },
-      (r) {
-        emit(AuthState.success(r));
-      },
+      (l) => emit(AuthState.error(l)),
+      (r) => emit(AuthState.success(r)),
     );
   }
 }

@@ -126,17 +126,32 @@ class SignInPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: SignInButton(
-                          Buttons.google,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          text: "Sign in with Google",
-                          onPressed: () async {},
-                        ),
+                      BlocBuilder<AuthCubit, AuthState>(
+                        builder: (context, state) {
+                          return SizedBox(
+                            height: 50,
+                            width: double.infinity,
+                            child: SignInButton(
+                              Buttons.google,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              text: "Sign in with Google",
+                              onPressed: () async {
+                                state.maybeMap(
+                                  orElse: () {
+                                    context
+                                        .read<AuthCubit>()
+                                        .signInWithGoogle();
+                                  },
+                                  loading: (e) {
+                                    //do nothing
+                                  },
+                                );
+                              },
+                            ),
+                          );
+                        },
                       ),
                       const SizedBox(height: 20),
                       SizedBox(

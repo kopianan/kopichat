@@ -32,8 +32,10 @@ extension GetItInjectableX on _i1.GetIt {
     final fBModule = _$FBModule();
     gh.singleton<_i3.FirebaseAuth>(fBModule.getFirebaseAuth);
     gh.singleton<_i4.GoogleSignIn>(fBModule.getGoogleSignin);
-    gh.singleton<_i5.AuthReposiotry>(
-        _i6.AuthDatasource(gh<_i3.FirebaseAuth>()));
+    gh.singleton<_i5.AuthReposiotry>(_i6.AuthDatasource(
+      gh<_i3.FirebaseAuth>(),
+      gh<_i4.GoogleSignIn>(),
+    ));
     gh.factory<_i7.AuthCubit>(() => _i7.AuthCubit(gh<_i5.AuthReposiotry>()));
     return this;
   }
