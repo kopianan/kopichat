@@ -33,4 +33,19 @@ class AuthCubit extends Cubit<AuthState> {
       (r) => emit(AuthState.success(r)),
     );
   }
+
+  void registerWithEmail(String email, String password, String name) async {
+    emit(AuthState.loading());
+    final result = await authReposiotry.signUpWithEmailAndPassword(
+      email: email,
+      password: password,
+      name: name,
+    );
+    //error / success
+
+    result.fold(
+      (l) => emit(AuthState.error(l)),
+      (r) => emit(AuthState.success(r)),
+    );
+  }
 }
