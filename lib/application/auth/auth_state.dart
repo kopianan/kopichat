@@ -4,6 +4,6 @@ part of 'auth_cubit.dart';
 class AuthState with _$AuthState {
   const factory AuthState.initial() = _Initial;
   const factory AuthState.loading() = _Loading;
-  const factory AuthState.success() = _Success;
-  const factory AuthState.error() = _Error;
+  const factory AuthState.success(User user) = _Success;
+  const factory AuthState.error(String errMsg) = _Error;
 }

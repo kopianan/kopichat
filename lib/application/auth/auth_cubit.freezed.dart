@@ -20,24 +20,24 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(User user) success,
+    required TResult Function(String errMsg) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function()? error,
+    TResult? Function(User user)? success,
+    TResult? Function(String errMsg)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(User user)? success,
+    TResult Function(String errMsg)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -125,8 +125,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(User user) success,
+    required TResult Function(String errMsg) error,
   }) {
     return initial();
   }
@@ -136,8 +136,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function()? error,
+    TResult? Function(User user)? success,
+    TResult? Function(String errMsg)? error,
   }) {
     return initial?.call();
   }
@@ -147,8 +147,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(User user)? success,
+    TResult Function(String errMsg)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -239,8 +239,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(User user) success,
+    required TResult Function(String errMsg) error,
   }) {
     return loading();
   }
@@ -250,8 +250,8 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function()? error,
+    TResult? Function(User user)? success,
+    TResult? Function(String errMsg)? error,
   }) {
     return loading?.call();
   }
@@ -261,8 +261,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(User user)? success,
+    TResult Function(String errMsg)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -318,6 +318,8 @@ abstract class _$$SuccessImplCopyWith<$Res> {
   factory _$$SuccessImplCopyWith(
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({User user});
 }
 
 /// @nodoc
@@ -327,36 +329,60 @@ class __$$SuccessImplCopyWithImpl<$Res>
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? user = null,
+  }) {
+    return _then(_$SuccessImpl(
+      null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl();
+  const _$SuccessImpl(this.user);
+
+  @override
+  final User user;
 
   @override
   String toString() {
-    return 'AuthState.success()';
+    return 'AuthState.success(user: $user)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, user);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(User user) success,
+    required TResult Function(String errMsg) error,
   }) {
-    return success();
+    return success(user);
   }
 
   @override
@@ -364,10 +390,10 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function()? error,
+    TResult? Function(User user)? success,
+    TResult? Function(String errMsg)? error,
   }) {
-    return success?.call();
+    return success?.call(user);
   }
 
   @override
@@ -375,12 +401,12 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(User user)? success,
+    TResult Function(String errMsg)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(user);
     }
     return orElse();
   }
@@ -424,7 +450,12 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements AuthState {
-  const factory _Success() = _$SuccessImpl;
+  const factory _Success(final User user) = _$SuccessImpl;
+
+  User get user;
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -432,6 +463,8 @@ abstract class _$$ErrorImplCopyWith<$Res> {
   factory _$$ErrorImplCopyWith(
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errMsg});
 }
 
 /// @nodoc
@@ -441,36 +474,60 @@ class __$$ErrorImplCopyWithImpl<$Res>
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errMsg = null,
+  }) {
+    return _then(_$ErrorImpl(
+      null == errMsg
+          ? _value.errMsg
+          : errMsg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl();
+  const _$ErrorImpl(this.errMsg);
+
+  @override
+  final String errMsg;
 
   @override
   String toString() {
-    return 'AuthState.error()';
+    return 'AuthState.error(errMsg: $errMsg)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ErrorImpl &&
+            (identical(other.errMsg, errMsg) || other.errMsg == errMsg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, errMsg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(User user) success,
+    required TResult Function(String errMsg) error,
   }) {
-    return error();
+    return error(errMsg);
   }
 
   @override
@@ -478,10 +535,10 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function()? error,
+    TResult? Function(User user)? success,
+    TResult? Function(String errMsg)? error,
   }) {
-    return error?.call();
+    return error?.call(errMsg);
   }
 
   @override
@@ -489,12 +546,12 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(User user)? success,
+    TResult Function(String errMsg)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error();
+      return error(errMsg);
     }
     return orElse();
   }
@@ -538,5 +595,10 @@ class _$ErrorImpl implements _Error {
 }
 
 abstract class _Error implements AuthState {
-  const factory _Error() = _$ErrorImpl;
+  const factory _Error(final String errMsg) = _$ErrorImpl;
+
+  String get errMsg;
+  @JsonKey(ignore: true)
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

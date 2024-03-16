@@ -51,10 +51,13 @@ class AuthDatasource implements AuthReposiotry {
 
       return right(user);
     } on FirebaseAuthException catch (err) {
+      print(err); 
       if (err.code == "user-disabled") {
         return left("User is disabled");
       } else if (err.code == "invalid-email") {
         return left("Email wrong");
+      } else if (err.code == "user-not-found") {
+        return left("No User found with this email");
       } else if (err.code == "wrong-password") {
         return left("Password is wrong");
       } else {

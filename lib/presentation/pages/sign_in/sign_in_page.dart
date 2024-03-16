@@ -20,129 +20,169 @@ class SignInPage extends StatelessWidget {
 
   final authCubit = getIt<AuthCubit>();
 
-  final emailCtr = TextEditingController(text: "anan@gmail.com");
+  final emailCtr = TextEditingController(text: "ananalfred@gmail.com");
   final pwdCtr = TextEditingController(text: "123456");
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Column(
+    return BlocProvider(
+      create: (context) => getIt<AuthCubit>(),
+      child: BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+          state.maybeMap(
+            orElse: () {},
+            loading: (e) {},
+            error: (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(e.errMsg),
+                  duration: Duration(seconds: 5),
+                ),
+              );
+            },
+            success: (e) {
+              context.router.replaceAll([HomeRoute()]);
+            },
+          );
+        },
+        child: Scaffold(
+            appBar: AppBar(),
+            body: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Please Login ! ",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  Text("Create an account so you can use this application")
-                ],
-              ),
-              const SizedBox(height: 30),
-              Column(
-                children: [
-                  TextFormField(
-                    controller: emailCtr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Email",
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: pwdCtr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Passpord",
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              const Spacer(),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  PrimaryButton(onTap: () {}, label: "Sign In"),
-                  const SizedBox(height: 20),
-                  Row(
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                          child: Divider(
-                        color: Colors.grey.shade400,
-                        thickness: 1.5,
-                      )),
-                      const SizedBox(width: 20),
                       Text(
-                        "Or Sign In with",
-                        style: TextStyle(color: Colors.grey.shade500),
+                        "Please Login ! ",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                          child: Divider(
-                        color: Colors.grey.shade400,
-                        thickness: 1.5,
-                      )),
+                      SizedBox(height: 10),
+                      Text("Create an account so you can use this application")
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  Column(
+                    children: [
+                      TextFormField(
+                        controller: emailCtr,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Email",
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: pwdCtr,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Passpord",
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: SignInButton(
-                      Buttons.google,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      text: "Sign in with Google",
-                      onPressed: () async {},
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: SignInButton(
-                      Buttons.apple,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      text: "Sign in with Apple",
-                      onPressed: () {},
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  RichText(
-                    text: TextSpan(
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  const Spacer(),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BlocBuilder<AuthCubit, AuthState>(
+                          builder: (context, state) {
+                        return PrimaryButton(
+                          onTap: () {
+                            context.read<AuthCubit>().signInWithEmail(
+                                  emailCtr.text,
+                                  pwdCtr.text,
+                                );
+                          },
+                          isLoading: state.maybeMap(
+                            orElse: () => false,
+                            loading: (e) => true,
+                          ),
+                          label: "Sign In",
+                        );
+                      }),
+                      const SizedBox(height: 20),
+                      Row(
                         children: [
-                          const TextSpan(text: "I don't have an account"),
-                          const TextSpan(text: " "),
-                          TextSpan(
-                            text: "Sign Up",
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                context.replaceRoute(SignUpRoute());
-                              },
-                            style: TextStyle(
-                              color: KopiColor.primaryColor,
+                          Expanded(
+                              child: Divider(
+                            color: Colors.grey.shade400,
+                            thickness: 1.5,
+                          )),
+                          const SizedBox(width: 20),
+                          Text(
+                            "Or Sign In with",
+                            style: TextStyle(color: Colors.grey.shade500),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                              child: Divider(
+                            color: Colors.grey.shade400,
+                            thickness: 1.5,
+                          )),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: SignInButton(
+                          Buttons.google,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          text: "Sign in with Google",
+                          onPressed: () async {},
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: SignInButton(
+                          Buttons.apple,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          text: "Sign in with Apple",
+                          onPressed: () {},
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      RichText(
+                        text: TextSpan(
+                            style: const TextStyle(
+                              color: Colors.grey,
                               fontWeight: FontWeight.bold,
                             ),
-                          ),
-                        ]),
+                            children: [
+                              const TextSpan(text: "I don't have an account"),
+                              const TextSpan(text: " "),
+                              TextSpan(
+                                text: "Sign Up",
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    context.replaceRoute(SignUpRoute());
+                                  },
+                                style: TextStyle(
+                                  color: KopiColor.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ]),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
                   )
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              )
-            ],
-          ),
-        ));
+            )),
+      ),
+    );
   }
 }

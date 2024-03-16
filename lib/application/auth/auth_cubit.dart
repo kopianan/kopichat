@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kopichat/domain/auth/auth_repository.dart';
@@ -11,7 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authReposiotry) : super(AuthState.initial());
   final AuthReposiotry authReposiotry;
 
-  void signInUser(String email, String password) async {
+  void signInWithEmail(String email, String password) async {
     emit(AuthState.loading());
     final result = await authReposiotry.signInWithEmailAndPassword(
         email: email, password: password);
@@ -19,12 +20,10 @@ class AuthCubit extends Cubit<AuthState> {
 
     result.fold(
       (l) {
-        print(l);
-        emit(AuthState.error());
+        emit(AuthState.error(l));
       },
       (r) {
-        print(r);
-        emit(AuthState.success());
+        emit(AuthState.success(r));
       },
     );
   }
