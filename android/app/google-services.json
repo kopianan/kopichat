@@ -12,7 +12,20 @@
           "package_name": "com.example.kopichat"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "695524442153-l3kid9l2ib63opgkr1h17b7776e5oa57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kopichat",
+            "certificate_hash": "1b072042ce5e242574b07e56ed60f8237974516e"
+          }
+        },
+        {
+          "client_id": "695524442153-ta2m0buariq3u5va30ssjjnuqd4b03d5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDHO7JhAeJp8Hz4IiWCvNNFpRxI9n59jsc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695524442153-ta2m0buariq3u5va30ssjjnuqd4b03d5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "695524442153-euf8l7akcjmpp42lkeb5a1jbn73djsse.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kopichat"
+              }
+            }
+          ]
         }
       }
     }

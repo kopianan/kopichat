@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBv47scjV4Xr7we5flNEvFBc4LKSf4YxMA',
-    appId: '1:695524442153:web:1c9320a790354494e25c38',
-    messagingSenderId: '695524442153',
-    projectId: 'kopichat-d6a07',
-    authDomain: 'kopichat-d6a07.firebaseapp.com',
-    storageBucket: 'kopichat-d6a07.appspot.com',
-    measurementId: 'G-KFLJ757TQL',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDHO7JhAeJp8Hz4IiWCvNNFpRxI9n59jsc',
     appId: '1:695524442153:android:9fccfbcec28e6e70e25c38',
@@ -67,15 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '695524442153',
     projectId: 'kopichat-d6a07',
     storageBucket: 'kopichat-d6a07.appspot.com',
+    androidClientId: '695524442153-l3kid9l2ib63opgkr1h17b7776e5oa57.apps.googleusercontent.com',
+    iosClientId: '695524442153-euf8l7akcjmpp42lkeb5a1jbn73djsse.apps.googleusercontent.com',
     iosBundleId: 'com.example.kopichat',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDL_OwQgDiql5xCyz3XmJzUHWaXOkq-7KM',
-    appId: '1:695524442153:ios:d111fd62aa9d2875e25c38',
-    messagingSenderId: '695524442153',
-    projectId: 'kopichat-d6a07',
-    storageBucket: 'kopichat-d6a07.appspot.com',
-    iosBundleId: 'com.example.kopichat.RunnerTests',
   );
 }
