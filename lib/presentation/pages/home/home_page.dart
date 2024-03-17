@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kopichat/presentation/router/kopi_router.dart';
 
@@ -9,10 +10,22 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              FirebaseAuth.instance
+                  .signOut()
+                  .then((value) => context.router.replaceAll([SplashRoute()]));
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
+      ),
       backgroundColor: Colors.green,
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        context.pushRoute(SignInRoute()); 
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        context.pushRoute(SignInRoute());
       }),
     );
   }

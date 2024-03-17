@@ -48,4 +48,15 @@ class AuthCubit extends Cubit<AuthState> {
       (r) => emit(AuthState.success(r)),
     );
   }
+
+  void checkAuthentication() async {
+    emit(AuthState.loading());
+    final result = await authReposiotry.authentication();
+    result.fold(
+      (l) => emit(AuthState.error(l)),
+      (r) => (r == null)
+          ? emit(AuthState.error("Not Authenticated"))
+          : emit(AuthState.success(r)),
+    );
+  }
 }

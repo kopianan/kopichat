@@ -111,4 +111,16 @@ class AuthDatasource implements AuthReposiotry {
       return left("User Not Found");
     }
   }
+
+  @override
+  Future<Either<String, User?>> authentication() async {
+    try {
+      final currUser = fbAuth.currentUser;
+
+      if (currUser != null) return right(currUser);
+      return right(null);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }
