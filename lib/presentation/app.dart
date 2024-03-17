@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kopichat/presentation/pages/home/home_page.dart';
-import 'package:kopichat/presentation/router/kopi_router.dart';
+import 'pages/home/home_page.dart';
+import 'router/kopi_router.dart';
 
 class App extends StatelessWidget {
   App({super.key});

@@ -5,13 +5,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:kopichat/application/auth/auth_cubit.dart';
-import 'package:kopichat/infrastructure/auth/auth_datasource.dart';
-import 'package:kopichat/injectable.dart';
-import 'package:kopichat/presentation/router/kopi_router.dart';
-import 'package:kopichat/presentation/theme/kopi_color.dart';
-import 'package:kopichat/presentation/widgets/primary_button.dart';
-import 'package:kopichat/presentation/widgets/secondary_button.dart';
+import '../../../application/auth/auth_cubit.dart';
+import '../../../infrastructure/auth/auth_datasource.dart';
+import '../../../injectable.dart';
+import '../../router/kopi_router.dart';
+import '../../theme/kopi_color.dart';
+import '../../widgets/primary_button.dart';
+import '../../widgets/secondary_button.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 @RoutePage()

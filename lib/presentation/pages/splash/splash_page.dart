@@ -2,9 +2,9 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kopichat/application/auth/auth_cubit.dart';
-import 'package:kopichat/injectable.dart';
-import 'package:kopichat/presentation/router/kopi_router.dart';
+import '../../../application/auth/auth_cubit.dart';
+import '../../../injectable.dart';
+import '../../router/kopi_router.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget {

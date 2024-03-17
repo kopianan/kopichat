@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kopichat/domain/auth/auth_repository.dart';
+import '../../domain/auth/auth_repository.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 @Singleton(as: AuthReposiotry)

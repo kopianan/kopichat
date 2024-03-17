@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kopichat/presentation/router/kopi_router.dart';
+import '../../router/kopi_router.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
       ),
       backgroundColor: Colors.green,
       floatingActionButton: FloatingActionButton(onPressed: () {
-        context.pushRoute(SignInRoute());
+        context.pushRoute(FriendRoute());
       }),
     );
   }

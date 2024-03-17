@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kopichat/presentation/theme/kopi_color.dart'; 
+import '../theme/kopi_color.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({

@@ -21,6 +21,12 @@ abstract class _$KopiRouter extends RootStackRouter {
         child: const ChatPage(),
       );
     },
+    FriendRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FriendPage(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -66,6 +72,20 @@ class ChatRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ChatRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FriendPage]
+class FriendRoute extends PageRouteInfo<void> {
+  const FriendRoute({List<PageRouteInfo>? children})
+      : super(
+          FriendRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FriendRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

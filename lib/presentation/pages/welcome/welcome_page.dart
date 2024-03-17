@@ -2,11 +2,11 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:kopichat/presentation/pages/sign_up/sign_up_page.dart';
-import 'package:kopichat/presentation/router/kopi_router.dart';
-import 'package:kopichat/presentation/theme/kopi_color.dart';
-import 'package:kopichat/presentation/widgets/primary_button.dart';
-import 'package:kopichat/presentation/widgets/secondary_button.dart';
+import '../sign_up/sign_up_page.dart';
+import '../../router/kopi_router.dart';
+import '../../theme/kopi_color.dart';
+import '../../widgets/primary_button.dart';
+import '../../widgets/secondary_button.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 @RoutePage()
