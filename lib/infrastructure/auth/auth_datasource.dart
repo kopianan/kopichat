@@ -1,14 +1,30 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kopichat/domain/auth/auth_repository.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 @Singleton(as: AuthReposiotry)
 class AuthDatasource implements AuthReposiotry {
-  AuthDatasource(this.fbAuth, this.googleSignIn);
+  AuthDatasource(this.fbAuth, this.googleSignIn, this.fbChatCore);
   final FirebaseAuth fbAuth;
   final GoogleSignIn googleSignIn;
+  final FirebaseChatCore fbChatCore;
+
+  Future<void> registerUserToFirestore(User user, {String? name}) async {
+    final chatUser = types.User(
+      id: user.uid,
+      imageUrl: user.photoURL ?? 'https://i.pravatar.cc/300',
+      firstName: name ?? user.displayName,
+      lastName: "",
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      updatedAt: DateTime.now().millisecondsSinceEpoch,
+      role: types.Role.user,
+    );
+    fbChatCore.createUserInFirestore(chatUser);
+  }
 
   @override
   Future<Either<String, User>> signUpWithEmailAndPassword({
@@ -22,7 +38,9 @@ class AuthDatasource implements AuthReposiotry {
 
       final user = userCred.user;
       if (user == null) return left("User Not Found");
-
+      //register to Firebase Success.
+      //create user on firestore
+      await registerUserToFirestore(user, name: name);
       return right(user);
     } on FirebaseAuthException catch (err) {
       if (err.code == "email-already-in-use") {
@@ -91,6 +109,7 @@ class AuthDatasource implements AuthReposiotry {
         if (user == null) {
           return left("User Not Found");
         } else {
+          registerUserToFirestore(user);
           return right(user);
         }
       } on FirebaseAuthException catch (err) {
