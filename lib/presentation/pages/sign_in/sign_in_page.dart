@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kopichat/application/authentication/authentication_cubit.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../infrastructure/auth/auth_datasource.dart';
 import '../../../injectable.dart';
@@ -40,6 +41,7 @@ class SignInPage extends StatelessWidget {
               );
             },
             success: (e) {
+              getIt<AuthenticationCubit>().setCurrentUser(e.user);
               context.router.replaceAll([HomeRoute()]);
             },
           );

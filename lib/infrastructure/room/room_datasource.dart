@@ -15,4 +15,14 @@ class RoomDatasource implements RoomRepository {
   Stream<Either<String, List<Room>>> watchRooms() async* {
     yield* fbChatCore.rooms().map((event) => right(event));
   }
+
+  @override
+  Future<Either<String, Room>> createSingleRoom(User otherUser) async {
+    try {
+      final newRoom = await fbChatCore.createRoom(otherUser);
+      return right(newRoom);
+    } catch (e) {
+      return left("SERVER ERROR");
+    }
+  }
 }

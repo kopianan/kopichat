@@ -14,4 +14,6 @@ abstract class AuthReposiotry {
     required String email,
     required String password,
   });
+
+  Either<String, User?> getCurrentUser();
 }

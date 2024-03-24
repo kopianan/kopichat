@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kopichat/application/authentication/authentication_cubit.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../injectable.dart';
 import '../../router/kopi_router.dart';
@@ -30,6 +31,8 @@ class _SplashPageState extends State<SplashPage> {
                   .then((value) => context.router.replaceAll([WelcomeRoute()]));
             },
             success: (e) {
+              //set current user 
+              getIt<AuthenticationCubit>().setCurrentUser(e.user); 
               Future.delayed(Duration(seconds: 3))
                   .then((value) => context.router.replaceAll([HomeRoute()]));
             },

@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kopichat/application/authentication/authentication_cubit.dart';
 import 'package:kopichat/application/room/room_cubit.dart';
 import 'package:kopichat/injectable.dart';
 import '../../router/kopi_router.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(getIt<AuthenticationCubit>().state.user?.displayName ?? ""),
         actions: [
           IconButton(
             onPressed: () {
@@ -30,12 +32,11 @@ class HomePage extends StatelessWidget {
         create: (context) => getIt<RoomCubit>()..watchAllRooms(),
         child: BlocBuilder<RoomCubit, RoomState>(
           builder: (context, state) {
-            print(state); 
+            print(state);
             return state.maybeMap(
               orElse: () {
                 return Container();
               },
-
               success: (value) {
                 final rooms = value.rooms;
                 if (rooms.isEmpty) {
@@ -48,6 +49,9 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final singleRoom = rooms[index];
                     return ListTile(
+                      onTap: () {
+                        context.router.push(ChatRoute(room: singleRoom));
+                      },
                       title: Text(singleRoom.name ?? ""),
                       leading: CircleAvatar(
                         backgroundColor: Colors.amber,
@@ -65,10 +69,12 @@ class HomePage extends StatelessWidget {
           },
         ),
       ),
-      
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        context.pushRoute(FriendRoute());
-      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.pushRoute(FriendRoute());
+        },
+        child: Icon(Icons.message),
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kopichat/application/authentication/authentication_cubit.dart';
 import '../../../application/auth/auth_cubit.dart';
 import '../../../injectable.dart';
 import '../../router/kopi_router.dart';
@@ -45,6 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
               );
             },
             success: (e) {
+              getIt<AuthenticationCubit>().setCurrentUser(e.user);
               context.router.replaceAll([HomeRoute()]);
             },
           );

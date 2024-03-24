@@ -142,4 +142,9 @@ class AuthDatasource implements AuthReposiotry {
       return left(e.toString());
     }
   }
+
+  @override
+  Either<String, User?> getCurrentUser() {
+    return right(fbAuth.currentUser);
+  }
 }

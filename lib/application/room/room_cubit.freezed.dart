@@ -22,6 +22,7 @@ mixin _$RoomState {
     required TResult Function() loading,
     required TResult Function(List<Room> rooms) success,
     required TResult Function(String errMsg) error,
+    required TResult Function(Room room) onRoomCreated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$RoomState {
     TResult? Function()? loading,
     TResult? Function(List<Room> rooms)? success,
     TResult? Function(String errMsg)? error,
+    TResult? Function(Room room)? onRoomCreated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$RoomState {
     TResult Function()? loading,
     TResult Function(List<Room> rooms)? success,
     TResult Function(String errMsg)? error,
+    TResult Function(Room room)? onRoomCreated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,7 @@ mixin _$RoomState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_OnRoomCreated value) onRoomCreated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +59,7 @@ mixin _$RoomState {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_OnRoomCreated value)? onRoomCreated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$RoomState {
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_OnRoomCreated value)? onRoomCreated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,6 +133,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() loading,
     required TResult Function(List<Room> rooms) success,
     required TResult Function(String errMsg) error,
+    required TResult Function(Room room) onRoomCreated,
   }) {
     return initial();
   }
@@ -138,6 +145,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? loading,
     TResult? Function(List<Room> rooms)? success,
     TResult? Function(String errMsg)? error,
+    TResult? Function(Room room)? onRoomCreated,
   }) {
     return initial?.call();
   }
@@ -149,6 +157,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? loading,
     TResult Function(List<Room> rooms)? success,
     TResult Function(String errMsg)? error,
+    TResult Function(Room room)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -164,6 +173,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_OnRoomCreated value) onRoomCreated,
   }) {
     return initial(this);
   }
@@ -175,6 +185,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_OnRoomCreated value)? onRoomCreated,
   }) {
     return initial?.call(this);
   }
@@ -186,6 +197,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_OnRoomCreated value)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,6 +253,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() loading,
     required TResult Function(List<Room> rooms) success,
     required TResult Function(String errMsg) error,
+    required TResult Function(Room room) onRoomCreated,
   }) {
     return loading();
   }
@@ -252,6 +265,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? loading,
     TResult? Function(List<Room> rooms)? success,
     TResult? Function(String errMsg)? error,
+    TResult? Function(Room room)? onRoomCreated,
   }) {
     return loading?.call();
   }
@@ -263,6 +277,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? loading,
     TResult Function(List<Room> rooms)? success,
     TResult Function(String errMsg)? error,
+    TResult Function(Room room)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -278,6 +293,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_OnRoomCreated value) onRoomCreated,
   }) {
     return loading(this);
   }
@@ -289,6 +305,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_OnRoomCreated value)? onRoomCreated,
   }) {
     return loading?.call(this);
   }
@@ -300,6 +317,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_OnRoomCreated value)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -387,6 +405,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function() loading,
     required TResult Function(List<Room> rooms) success,
     required TResult Function(String errMsg) error,
+    required TResult Function(Room room) onRoomCreated,
   }) {
     return success(rooms);
   }
@@ -398,6 +417,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? loading,
     TResult? Function(List<Room> rooms)? success,
     TResult? Function(String errMsg)? error,
+    TResult? Function(Room room)? onRoomCreated,
   }) {
     return success?.call(rooms);
   }
@@ -409,6 +429,7 @@ class _$SuccessImpl implements _Success {
     TResult Function()? loading,
     TResult Function(List<Room> rooms)? success,
     TResult Function(String errMsg)? error,
+    TResult Function(Room room)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -424,6 +445,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_OnRoomCreated value) onRoomCreated,
   }) {
     return success(this);
   }
@@ -435,6 +457,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_OnRoomCreated value)? onRoomCreated,
   }) {
     return success?.call(this);
   }
@@ -446,6 +469,7 @@ class _$SuccessImpl implements _Success {
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_OnRoomCreated value)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -532,6 +556,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() loading,
     required TResult Function(List<Room> rooms) success,
     required TResult Function(String errMsg) error,
+    required TResult Function(Room room) onRoomCreated,
   }) {
     return error(errMsg);
   }
@@ -543,6 +568,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? loading,
     TResult? Function(List<Room> rooms)? success,
     TResult? Function(String errMsg)? error,
+    TResult? Function(Room room)? onRoomCreated,
   }) {
     return error?.call(errMsg);
   }
@@ -554,6 +580,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? loading,
     TResult Function(List<Room> rooms)? success,
     TResult Function(String errMsg)? error,
+    TResult Function(Room room)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -569,6 +596,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_OnRoomCreated value) onRoomCreated,
   }) {
     return error(this);
   }
@@ -580,6 +608,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_OnRoomCreated value)? onRoomCreated,
   }) {
     return error?.call(this);
   }
@@ -591,6 +620,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_OnRoomCreated value)? onRoomCreated,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -606,5 +636,156 @@ abstract class _Error implements RoomState {
   String get errMsg;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnRoomCreatedImplCopyWith<$Res> {
+  factory _$$OnRoomCreatedImplCopyWith(
+          _$OnRoomCreatedImpl value, $Res Function(_$OnRoomCreatedImpl) then) =
+      __$$OnRoomCreatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Room room});
+}
+
+/// @nodoc
+class __$$OnRoomCreatedImplCopyWithImpl<$Res>
+    extends _$RoomStateCopyWithImpl<$Res, _$OnRoomCreatedImpl>
+    implements _$$OnRoomCreatedImplCopyWith<$Res> {
+  __$$OnRoomCreatedImplCopyWithImpl(
+      _$OnRoomCreatedImpl _value, $Res Function(_$OnRoomCreatedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? room = null,
+  }) {
+    return _then(_$OnRoomCreatedImpl(
+      null == room
+          ? _value.room
+          : room // ignore: cast_nullable_to_non_nullable
+              as Room,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnRoomCreatedImpl implements _OnRoomCreated {
+  const _$OnRoomCreatedImpl(this.room);
+
+  @override
+  final Room room;
+
+  @override
+  String toString() {
+    return 'RoomState.onRoomCreated(room: $room)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnRoomCreatedImpl &&
+            (identical(other.room, room) || other.room == room));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, room);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnRoomCreatedImplCopyWith<_$OnRoomCreatedImpl> get copyWith =>
+      __$$OnRoomCreatedImplCopyWithImpl<_$OnRoomCreatedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<Room> rooms) success,
+    required TResult Function(String errMsg) error,
+    required TResult Function(Room room) onRoomCreated,
+  }) {
+    return onRoomCreated(room);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<Room> rooms)? success,
+    TResult? Function(String errMsg)? error,
+    TResult? Function(Room room)? onRoomCreated,
+  }) {
+    return onRoomCreated?.call(room);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<Room> rooms)? success,
+    TResult Function(String errMsg)? error,
+    TResult Function(Room room)? onRoomCreated,
+    required TResult orElse(),
+  }) {
+    if (onRoomCreated != null) {
+      return onRoomCreated(room);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+    required TResult Function(_OnRoomCreated value) onRoomCreated,
+  }) {
+    return onRoomCreated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_OnRoomCreated value)? onRoomCreated,
+  }) {
+    return onRoomCreated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    TResult Function(_OnRoomCreated value)? onRoomCreated,
+    required TResult orElse(),
+  }) {
+    if (onRoomCreated != null) {
+      return onRoomCreated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnRoomCreated implements RoomState {
+  const factory _OnRoomCreated(final Room room) = _$OnRoomCreatedImpl;
+
+  Room get room;
+  @JsonKey(ignore: true)
+  _$$OnRoomCreatedImplCopyWith<_$OnRoomCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

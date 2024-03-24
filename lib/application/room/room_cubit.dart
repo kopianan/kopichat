@@ -9,15 +9,24 @@ part 'room_cubit.freezed.dart';
 
 @injectable
 class RoomCubit extends Cubit<RoomState> {
-  RoomCubit(this.roomRepository) : super(RoomState.initial());
+  RoomCubit(this.roomRepository) : super(const RoomState.initial());
   RoomRepository roomRepository;
   void watchAllRooms() {
-    emit(RoomState.loading());
+    emit(const RoomState.loading());
     roomRepository.watchRooms().listen((event) {
       event.fold(
-        (l) => emit(RoomState.error("Error")),
+        (l) => emit(const RoomState.error("Error")),
         (r) => emit(RoomState.success(r)),
       );
     });
+  }
+
+  void createSingleRoom(User user) async {
+    emit(const RoomState.loading());
+    final result = await roomRepository.createSingleRoom(user);
+    result.fold(
+      (l) => emit(RoomState.error(l)),
+      (r) => emit(RoomState.onRoomCreated(r)),
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart';
 import '../pages/chat/chat_page.dart';
 import '../pages/friends/friends_page.dart';
 import '../pages/home/home_page.dart';
