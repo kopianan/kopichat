@@ -25,4 +25,10 @@ class RoomDatasource implements RoomRepository {
       return left("SERVER ERROR");
     }
   }
+
+  @override
+  Future<Either<String, Unit>> updateRoom(Room room) async {
+    fbChatCore.updateRoom(room);
+    return right(unit);
+  }
 }

@@ -16,7 +16,8 @@ class AuthDatasource implements AuthReposiotry {
   Future<void> registerUserToFirestore(User user, {String? name}) async {
     final chatUser = types.User(
       id: user.uid,
-      imageUrl: user.photoURL ?? 'https://i.pravatar.cc/300',
+      imageUrl: user.photoURL ??
+          'https://api.multiavatar.com/${user.email ?? "placeholder"}.png',
       firstName: name ?? user.displayName,
       lastName: "",
       createdAt: DateTime.now().millisecondsSinceEpoch,

@@ -41,13 +41,13 @@ class _SignUpPageState extends State<SignUpPage> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(e.errMsg),
-                  duration: Duration(seconds: 5),
+                  duration: const Duration(seconds: 5),
                 ),
               );
             },
             success: (e) {
               getIt<AuthenticationCubit>().setCurrentUser(e.user);
-              context.router.replaceAll([HomeRoute()]);
+              context.router.replaceAll([const HomeRoute()]);
             },
           );
         },

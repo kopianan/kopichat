@@ -29,4 +29,8 @@ class RoomCubit extends Cubit<RoomState> {
       (r) => emit(RoomState.onRoomCreated(r)),
     );
   }
+
+  void updateRoom(Room room) async {
+    await roomRepository.updateRoom(room);
+  }
 }

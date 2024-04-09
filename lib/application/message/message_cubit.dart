@@ -12,7 +12,7 @@ part 'message_cubit.freezed.dart';
 
 @injectable
 class MessageCubit extends Cubit<MessageState> {
-  MessageCubit(this.chatRepository) : super(MessageState.initial());
+  MessageCubit(this.chatRepository) : super(const MessageState.initial());
   ChatRepository chatRepository;
 
   StreamSubscription<Either<String, List<Message>>>? _messageSubscription;
@@ -24,7 +24,7 @@ class MessageCubit extends Cubit<MessageState> {
         .listen((event) => _onMessagesReceived(event));
   }
 
-  void _onMessagesReceived(Either<String, List<Message>> data) {
+  _onMessagesReceived(Either<String, List<Message>> data) async {
     data.fold(
       (l) => emit(const MessageState.error()),
       (r) => emit(MessageState.onMessages(r)),
