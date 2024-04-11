@@ -9,18 +9,18 @@ import 'package:injectable/injectable.dart';
 
 import '../../../domain/chat/chat_repository.dart';
 
-part 'message_event.dart';
-part 'message_state.dart';
-part 'message_bloc.freezed.dart';
+part 'message_stream_event.dart';
+part 'message_stream_state.dart';
+part 'message_stream_bloc.freezed.dart';
 
 @injectable
-class MessageBloc extends Bloc<MessageEvent, MessageState> {
+class MessageStreamBloc extends Bloc<MessageStreamEvent, MessageStreamState> {
   final ChatRepository chatRepository;
   StreamSubscription<Either<String, List<Message>>>? messageSubscription;
 
-  MessageBloc(this.chatRepository) : super(const _Initial()) {
+  MessageStreamBloc(this.chatRepository) : super(const _Initial()) {
     on<WatchAllMessageEvent>((event, emit) async {
-      emit(const MessageState.loadInProgress());
+      emit(const MessageStreamState.loadInProgress());
       messageSubscription?.cancel();
       messageSubscription = chatRepository
           .watchMessages(event.room)
@@ -29,8 +29,8 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
 
     on<MessageReceivedEvent>((event, emit) async {
       event.messages.fold(
-        (l) => emit(const MessageState.loadFailure()),
-        (r) => emit(MessageState.loadSuccess(r)),
+        (l) => emit(const MessageStreamState.loadFailure()),
+        (r) => emit(MessageStreamState.loadSuccess(r)),
       );
     });
 

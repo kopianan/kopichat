@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:kopichat/application/room/room_cubit.dart';
 import 'package:kopichat/injectable.dart';
+import 'package:kopichat/util/chat_type_util.dart';
 import '../../router/kopi_router.dart';
 
 @RoutePage()
@@ -75,10 +76,6 @@ class HomePage extends StatelessWidget {
                               final singleRoom = rooms[index];
                               final lastMessage =
                                   singleRoom.lastMessages?.single;
-                              TextMessage? lastText;
-                              if (lastMessage?.type == MessageType.text) {
-                                lastText = lastMessage as TextMessage;
-                              }
 
                               return Container(
                                 decoration: BoxDecoration(
@@ -90,12 +87,12 @@ class HomePage extends StatelessWidget {
                                     context.router
                                         .push(ChatRoute(room: singleRoom));
                                   },
-                                  subtitle: Text(
-                                    lastText?.text ?? "",
-                                    maxLines: 2,
-                                  ),
+                                  subtitle:
+                                      ChatTypeUtil.messageSubtitle(lastMessage),
                                   trailing: Text(
-                                      singleRoom.updatedAt.toString() ?? ""),
+                                    ChatTypeUtil.formatIntDate(
+                                        singleRoom.updatedAt),
+                                  ),
                                   title: Text(singleRoom.name ?? ""),
                                   titleTextStyle: const TextStyle(
                                     fontSize: 16,

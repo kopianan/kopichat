@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'message_bloc.dart';
+part of 'message_stream_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$MessageEvent {
+mixin _$MessageStreamEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
@@ -70,16 +70,16 @@ mixin _$MessageEvent {
 }
 
 /// @nodoc
-abstract class $MessageEventCopyWith<$Res> {
-  factory $MessageEventCopyWith(
-          MessageEvent value, $Res Function(MessageEvent) then) =
-      _$MessageEventCopyWithImpl<$Res, MessageEvent>;
+abstract class $MessageStreamEventCopyWith<$Res> {
+  factory $MessageStreamEventCopyWith(
+          MessageStreamEvent value, $Res Function(MessageStreamEvent) then) =
+      _$MessageStreamEventCopyWithImpl<$Res, MessageStreamEvent>;
 }
 
 /// @nodoc
-class _$MessageEventCopyWithImpl<$Res, $Val extends MessageEvent>
-    implements $MessageEventCopyWith<$Res> {
-  _$MessageEventCopyWithImpl(this._value, this._then);
+class _$MessageStreamEventCopyWithImpl<$Res, $Val extends MessageStreamEvent>
+    implements $MessageStreamEventCopyWith<$Res> {
+  _$MessageStreamEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -96,7 +96,7 @@ abstract class _$$StartedEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedEventImplCopyWithImpl<$Res>
-    extends _$MessageEventCopyWithImpl<$Res, _$StartedEventImpl>
+    extends _$MessageStreamEventCopyWithImpl<$Res, _$StartedEventImpl>
     implements _$$StartedEventImplCopyWith<$Res> {
   __$$StartedEventImplCopyWithImpl(
       _$StartedEventImpl _value, $Res Function(_$StartedEventImpl) _then)
@@ -110,7 +110,7 @@ class _$StartedEventImpl implements StartedEvent {
 
   @override
   String toString() {
-    return 'MessageEvent.started()';
+    return 'MessageStreamEvent.started()';
   }
 
   @override
@@ -198,7 +198,7 @@ class _$StartedEventImpl implements StartedEvent {
   }
 }
 
-abstract class StartedEvent implements MessageEvent {
+abstract class StartedEvent implements MessageStreamEvent {
   const factory StartedEvent() = _$StartedEventImpl;
 }
 
@@ -213,7 +213,7 @@ abstract class _$$SendMessageEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SendMessageEventImplCopyWithImpl<$Res>
-    extends _$MessageEventCopyWithImpl<$Res, _$SendMessageEventImpl>
+    extends _$MessageStreamEventCopyWithImpl<$Res, _$SendMessageEventImpl>
     implements _$$SendMessageEventImplCopyWith<$Res> {
   __$$SendMessageEventImplCopyWithImpl(_$SendMessageEventImpl _value,
       $Res Function(_$SendMessageEventImpl) _then)
@@ -250,7 +250,7 @@ class _$SendMessageEventImpl implements SendMessageEvent {
 
   @override
   String toString() {
-    return 'MessageEvent.sendMessage(text: $text, roomId: $roomId)';
+    return 'MessageStreamEvent.sendMessage(text: $text, roomId: $roomId)';
   }
 
   @override
@@ -348,7 +348,7 @@ class _$SendMessageEventImpl implements SendMessageEvent {
   }
 }
 
-abstract class SendMessageEvent implements MessageEvent {
+abstract class SendMessageEvent implements MessageStreamEvent {
   const factory SendMessageEvent(final PartialText text, final String roomId) =
       _$SendMessageEventImpl;
 
@@ -370,7 +370,7 @@ abstract class _$$WatchAllMessageEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$WatchAllMessageEventImplCopyWithImpl<$Res>
-    extends _$MessageEventCopyWithImpl<$Res, _$WatchAllMessageEventImpl>
+    extends _$MessageStreamEventCopyWithImpl<$Res, _$WatchAllMessageEventImpl>
     implements _$$WatchAllMessageEventImplCopyWith<$Res> {
   __$$WatchAllMessageEventImplCopyWithImpl(_$WatchAllMessageEventImpl _value,
       $Res Function(_$WatchAllMessageEventImpl) _then)
@@ -400,7 +400,7 @@ class _$WatchAllMessageEventImpl implements WatchAllMessageEvent {
 
   @override
   String toString() {
-    return 'MessageEvent.watchAllMessage(room: $room)';
+    return 'MessageStreamEvent.watchAllMessage(room: $room)';
   }
 
   @override
@@ -498,7 +498,7 @@ class _$WatchAllMessageEventImpl implements WatchAllMessageEvent {
   }
 }
 
-abstract class WatchAllMessageEvent implements MessageEvent {
+abstract class WatchAllMessageEvent implements MessageStreamEvent {
   const factory WatchAllMessageEvent(final Room room) =
       _$WatchAllMessageEventImpl;
 
@@ -519,7 +519,7 @@ abstract class _$$MessageReceivedEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$MessageReceivedEventImplCopyWithImpl<$Res>
-    extends _$MessageEventCopyWithImpl<$Res, _$MessageReceivedEventImpl>
+    extends _$MessageStreamEventCopyWithImpl<$Res, _$MessageReceivedEventImpl>
     implements _$$MessageReceivedEventImplCopyWith<$Res> {
   __$$MessageReceivedEventImplCopyWithImpl(_$MessageReceivedEventImpl _value,
       $Res Function(_$MessageReceivedEventImpl) _then)
@@ -549,7 +549,7 @@ class _$MessageReceivedEventImpl implements MessageReceivedEvent {
 
   @override
   String toString() {
-    return 'MessageEvent.messageReceived(messages: $messages)';
+    return 'MessageStreamEvent.messageReceived(messages: $messages)';
   }
 
   @override
@@ -648,7 +648,7 @@ class _$MessageReceivedEventImpl implements MessageReceivedEvent {
   }
 }
 
-abstract class MessageReceivedEvent implements MessageEvent {
+abstract class MessageReceivedEvent implements MessageStreamEvent {
   const factory MessageReceivedEvent(
           final Either<String, List<Message>> messages) =
       _$MessageReceivedEventImpl;
@@ -660,7 +660,7 @@ abstract class MessageReceivedEvent implements MessageEvent {
 }
 
 /// @nodoc
-mixin _$MessageState {
+mixin _$MessageStreamState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -714,16 +714,16 @@ mixin _$MessageState {
 }
 
 /// @nodoc
-abstract class $MessageStateCopyWith<$Res> {
-  factory $MessageStateCopyWith(
-          MessageState value, $Res Function(MessageState) then) =
-      _$MessageStateCopyWithImpl<$Res, MessageState>;
+abstract class $MessageStreamStateCopyWith<$Res> {
+  factory $MessageStreamStateCopyWith(
+          MessageStreamState value, $Res Function(MessageStreamState) then) =
+      _$MessageStreamStateCopyWithImpl<$Res, MessageStreamState>;
 }
 
 /// @nodoc
-class _$MessageStateCopyWithImpl<$Res, $Val extends MessageState>
-    implements $MessageStateCopyWith<$Res> {
-  _$MessageStateCopyWithImpl(this._value, this._then);
+class _$MessageStreamStateCopyWithImpl<$Res, $Val extends MessageStreamState>
+    implements $MessageStreamStateCopyWith<$Res> {
+  _$MessageStreamStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -740,7 +740,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$MessageStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$MessageStreamStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -754,7 +754,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'MessageState.initial()';
+    return 'MessageStreamState.initial()';
   }
 
   @override
@@ -841,7 +841,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements MessageState {
+abstract class _Initial implements MessageStreamState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -854,7 +854,7 @@ abstract class _$$LoadInProgressImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadInProgressImplCopyWithImpl<$Res>
-    extends _$MessageStateCopyWithImpl<$Res, _$LoadInProgressImpl>
+    extends _$MessageStreamStateCopyWithImpl<$Res, _$LoadInProgressImpl>
     implements _$$LoadInProgressImplCopyWith<$Res> {
   __$$LoadInProgressImplCopyWithImpl(
       _$LoadInProgressImpl _value, $Res Function(_$LoadInProgressImpl) _then)
@@ -868,7 +868,7 @@ class _$LoadInProgressImpl implements _LoadInProgress {
 
   @override
   String toString() {
-    return 'MessageState.loadInProgress()';
+    return 'MessageStreamState.loadInProgress()';
   }
 
   @override
@@ -955,7 +955,7 @@ class _$LoadInProgressImpl implements _LoadInProgress {
   }
 }
 
-abstract class _LoadInProgress implements MessageState {
+abstract class _LoadInProgress implements MessageStreamState {
   const factory _LoadInProgress() = _$LoadInProgressImpl;
 }
 
@@ -970,7 +970,7 @@ abstract class _$$LoadSuccessImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadSuccessImplCopyWithImpl<$Res>
-    extends _$MessageStateCopyWithImpl<$Res, _$LoadSuccessImpl>
+    extends _$MessageStreamStateCopyWithImpl<$Res, _$LoadSuccessImpl>
     implements _$$LoadSuccessImplCopyWith<$Res> {
   __$$LoadSuccessImplCopyWithImpl(
       _$LoadSuccessImpl _value, $Res Function(_$LoadSuccessImpl) _then)
@@ -1005,7 +1005,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
 
   @override
   String toString() {
-    return 'MessageState.loadSuccess(messages: $messages)';
+    return 'MessageStreamState.loadSuccess(messages: $messages)';
   }
 
   @override
@@ -1101,7 +1101,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
   }
 }
 
-abstract class _LoadSuccess implements MessageState {
+abstract class _LoadSuccess implements MessageStreamState {
   const factory _LoadSuccess(final List<Message> messages) = _$LoadSuccessImpl;
 
   List<Message> get messages;
@@ -1119,7 +1119,7 @@ abstract class _$$LoadFailureImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadFailureImplCopyWithImpl<$Res>
-    extends _$MessageStateCopyWithImpl<$Res, _$LoadFailureImpl>
+    extends _$MessageStreamStateCopyWithImpl<$Res, _$LoadFailureImpl>
     implements _$$LoadFailureImplCopyWith<$Res> {
   __$$LoadFailureImplCopyWithImpl(
       _$LoadFailureImpl _value, $Res Function(_$LoadFailureImpl) _then)
@@ -1133,7 +1133,7 @@ class _$LoadFailureImpl implements _LoadFailure {
 
   @override
   String toString() {
-    return 'MessageState.loadFailure()';
+    return 'MessageStreamState.loadFailure()';
   }
 
   @override
@@ -1220,6 +1220,6 @@ class _$LoadFailureImpl implements _LoadFailure {
   }
 }
 
-abstract class _LoadFailure implements MessageState {
+abstract class _LoadFailure implements MessageStreamState {
   const factory _LoadFailure() = _$LoadFailureImpl;
 }

@@ -3,15 +3,22 @@ import 'dart:developer';
 import 'dart:math';
 
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as type;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:kopichat/application/authentication/authentication_cubit.dart';
 import 'package:kopichat/application/chat_data/chat_data_cubit.dart';
-import 'package:kopichat/application/message/bloc/message_bloc.dart';
+import 'package:kopichat/application/message/bloc/message_stream_bloc.dart';
+import 'package:kopichat/application/message/cubit/message_cubit.dart';
 import 'package:kopichat/application/room/room_cubit.dart';
 import 'package:kopichat/injectable.dart';
+import 'package:kopichat/util/chat_type_util.dart';
+import 'package:kopichat/util/picker_helper.dart';
+import 'package:kopichat/util/string_extension.dart';
 
 @RoutePage()
 class ChatPage extends StatefulWidget {
@@ -26,13 +33,14 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final messageCubit = getIt<MessageBloc>();
+  final messageBloc = getIt<MessageStreamBloc>();
+  final messageCubit = getIt<MessageCubit>();
   final chatDataCubit = getIt<ChatDataCubit>();
   late type.Room room;
 
-  void onSendPressed(type.PartialText message) {
+  void onSendPressed(dynamic message) {
     //send message
-    messageCubit.add(SendMessageEvent(message, room.id));
+    messageCubit.sendMessage(message, room.id);
   }
 
   @override
@@ -48,13 +56,22 @@ class _ChatPageState extends State<ChatPage> {
 
     if (last != null) {
       final newRoom = room.copyWith(
-        lastMessages: [last as type.TextMessage],
+        lastMessages: [last],
         updatedAt: last.updatedAt,
       );
       getIt<RoomCubit>().updateRoom(newRoom);
     }
-    messageCubit.close();
+    messageBloc.close();
     super.dispose();
+  }
+
+  void _handlePreviewDataFetched(
+    type.TextMessage message,
+    type.PreviewData previewData,
+  ) {
+    final updatedMessage = message.copyWith(previewData: previewData);
+
+    FirebaseChatCore.instance.updateMessage(updatedMessage, widget.room.id);
   }
 
   @override
@@ -65,46 +82,80 @@ class _ChatPageState extends State<ChatPage> {
           create: (context) => chatDataCubit..setCurrentRoom(room),
         ),
         BlocProvider(
-            create: (context) => messageCubit..add(WatchAllMessageEvent(room))),
-      ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(room.name ?? ""),
+          create: (context) => messageCubit,
         ),
-        body: BlocListener<MessageBloc, MessageState>(
-          listener: (context, state) {
-            state.maybeMap(
-              orElse: () {},
-              loadSuccess: (e) {
-                if (e.messages.isNotEmpty) {
-                  chatDataCubit.setLastMessage(e.messages.first);
-                }
-              },
-            );
-          },
-          child: BlocBuilder<MessageBloc, MessageState>(
-            builder: (context, state) {
-              return state.maybeMap(
-                orElse: () {
-                  return Container();
-                },
-                loadSuccess: (value) {
-                  final currUserId =
-                      getIt<AuthenticationCubit>().state.getUserId;
-                  final currUser = room.users
-                      .firstWhere((element) => element.id == currUserId);
-                  return Chat(
-                    onAttachmentPressed: () {
-                      onAttachmentPressed(context);
-                    },
-                    showUserAvatars: true,
-                    messages: value.messages,
-                    onSendPressed: onSendPressed,
-                    user: currUser,
-                  );
+        BlocProvider(
+            create: (context) => messageBloc..add(WatchAllMessageEvent(room))),
+      ],
+      child: BlocListener<MessageCubit, MessageState>(
+        listener: (context, state) {
+          state.maybeMap(
+            orElse: () {},
+            imageUploaded: (e) {
+              onSendPressed(e.partialImage);
+            },
+            videoUploaded: (e) {
+              onSendPressed(e.partialVideo);
+            },
+            fileUploaded: (e) {
+              onSendPressed(e.partialFile);
+            },
+          );
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(room.name ?? ""),
+          ),
+          body: BlocListener<MessageStreamBloc, MessageStreamState>(
+            listener: (context, state) {
+              state.maybeMap(
+                orElse: () {},
+                loadSuccess: (e) {
+                  if (e.messages.isNotEmpty) {
+                    chatDataCubit.setLastMessage(e.messages.first);
+                  }
                 },
               );
             },
+            child: BlocBuilder<MessageCubit, MessageState>(
+              builder: (context, msgState) {
+                return BlocBuilder<MessageStreamBloc, MessageStreamState>(
+                  builder: (context, state) {
+                    return state.maybeMap(
+                      orElse: () {
+                        return Container();
+                      },
+                      loadSuccess: (value) {
+                        final currUserId =
+                            getIt<AuthenticationCubit>().state.getUserId;
+                        final currUser = room.users
+                            .firstWhere((element) => element.id == currUserId);
+                        return Chat(
+                          onAttachmentPressed: () {
+                            onAttachmentPressed(context);
+                          },
+                          isAttachmentUploading: msgState.maybeMap(
+                            orElse: () => false,
+                            uploading: (e) => true,
+                          ),
+                          showUserAvatars: true,
+                          onPreviewDataFetched: _handlePreviewDataFetched,
+
+                          usePreviewData: true,
+                          // videoMessageBuilder: (p0, {required messageWidth}) {
+                          //   print(p0);
+                          //   return const Text("VIDEO");
+                          // },
+                          messages: value.messages,
+                          onSendPressed: onSendPressed,
+                          user: currUser,
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -120,7 +171,7 @@ class _ChatPageState extends State<ChatPage> {
             borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
         builder: (context) {
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -134,23 +185,52 @@ class _ChatPageState extends State<ChatPage> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 80, crossAxisSpacing: 15),
-                  children: const [
+                    maxCrossAxisExtent: 80,
+                    crossAxisSpacing: 15,
+                  ),
+                  children: [
                     AttachmentMenuWidget(
                       iconData: Icons.image,
-                      label: "Gallery",
+                      label: "Photos",
+                      onTap: () async {
+                        context.router.pop();
+                        final file =
+                            await PickerHelper.pickFiles(FileType.image);
+
+                        if (file != null) {
+                          messageCubit.uploadImage(file, room.id);
+                        }
+                      },
                     ),
                     AttachmentMenuWidget(
-                      iconData: Icons.camera,
-                      label: "Camera",
+                      iconData: Icons.ondemand_video_rounded,
+                      label: "Video",
+                      onTap: () async {
+                        context.router.pop();
+                        final file =
+                            await PickerHelper.pickFiles(FileType.video);
+
+                        if (file != null) {
+                          messageCubit.uploadVideo(file, room.id);
+                        }
+                      },
                     ),
-                    AttachmentMenuWidget(
+                    const AttachmentMenuWidget(
                       iconData: Icons.multitrack_audio_sharp,
                       label: "Audio",
                     ),
                     AttachmentMenuWidget(
                       iconData: Icons.file_copy,
                       label: "File",
+                      onTap: () async {
+                        context.router.pop();
+                        final file = await PickerHelper.pickFiles(FileType.any,
+                            extensions: ['pdf']);
+
+                        if (file != null) {
+                          messageCubit.uploadFile(file, room.id);
+                        }
+                      },
                     ),
                   ],
                 ),
