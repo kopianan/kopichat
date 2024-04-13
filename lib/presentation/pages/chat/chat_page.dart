@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as type;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -19,6 +21,7 @@ import 'package:kopichat/injectable.dart';
 import 'package:kopichat/util/chat_type_util.dart';
 import 'package:kopichat/util/picker_helper.dart';
 import 'package:kopichat/util/string_extension.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 @RoutePage()
 class ChatPage extends StatefulWidget {
@@ -131,6 +134,36 @@ class _ChatPageState extends State<ChatPage> {
                         final currUser = room.users
                             .firstWhere((element) => element.id == currUserId);
                         return Chat(
+                          videoMessageBuilder: (p0, {required messageWidth}) {
+                            final videoFuture = VideoThumbnail.thumbnailData(
+                              video: p0.uri,
+                              imageFormat: ImageFormat.JPEG,
+                              maxWidth: messageWidth,
+                              quality: 25,
+                            );
+                            return FutureBuilder(
+                              future: videoFuture,
+                              builder: (context, snp) {
+                                if (snp.connectionState ==
+                                    ConnectionState.done) {
+                                  return Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image(image: MemoryImage(snp.data!)),
+                                      const Center(
+                                        child: Icon(
+                                          Icons.play_circle_filled_rounded,
+                                          size: 50,
+                                          color: Colors.white60,
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                                return Container();
+                              },
+                            );
+                          },
                           onAttachmentPressed: () {
                             onAttachmentPressed(context);
                           },
