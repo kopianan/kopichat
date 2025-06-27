@@ -27,18 +27,18 @@ class _SplashPageState extends State<SplashPage> {
             orElse: () {},
             loading: (e) {},
             error: (e) {
-              Future.delayed(Duration(seconds: 3))
-                  .then((value) => context.router.replaceAll([WelcomeRoute()]));
+              Future.delayed(const Duration(seconds: 0))
+                  .then((value) => context.router.replaceAll([const WelcomeRoute()]));
             },
             success: (e) {
               //set current user 
               getIt<AuthenticationCubit>().setCurrentUser(e.user); 
-              Future.delayed(Duration(seconds: 3))
-                  .then((value) => context.router.replaceAll([HomeRoute()]));
+              Future.delayed(const Duration(seconds: 0))
+                  .then((value) => context.router.replaceAll([const HomeRoute()]));
             },
           );
         },
-        child: Scaffold(
+        child: const Scaffold(
           body: Center(
             child: Text("Flutter Splash Page"),
           ),

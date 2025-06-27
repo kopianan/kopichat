@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Flutter",
+        "request": "launch",
+        "type": "dart",
+        "flutterMode": "debug"
+      },
+      {
+        "name": "Flutter DevTools",
+        "request": "launch",
+        "type": "dart",
+        "program": "path_to_flutter_devtools",
+        "args": ["-d", "chrome"]
+      }
+    ]
+  }
+  

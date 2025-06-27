@@ -9,11 +9,11 @@ part 'auth_cubit.freezed.dart';
 
 @injectable
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this.authReposiotry) : super(AuthState.initial());
+  AuthCubit(this.authReposiotry) : super(const AuthState.initial());
   final AuthReposiotry authReposiotry;
 
   void signInWithGoogle() async {
-    emit(AuthState.loading());
+    emit(const AuthState.loading());
     final result = await authReposiotry.signInWithGoogle();
     //error / success
     result.fold(
@@ -23,7 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void signInWithEmail(String email, String password) async {
-    emit(AuthState.loading());
+    emit(const AuthState.loading());
     final result = await authReposiotry.signInWithEmailAndPassword(
         email: email, password: password);
     //error / success
@@ -35,7 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void registerWithEmail(String email, String password, String name) async {
-    emit(AuthState.loading());
+    emit(const AuthState.loading());
     final result = await authReposiotry.signUpWithEmailAndPassword(
       email: email,
       password: password,
@@ -50,12 +50,12 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void checkAuthentication() async {
-    emit(AuthState.loading());
+    emit(const AuthState.loading());
     final result = await authReposiotry.authentication();
     result.fold(
       (l) => emit(AuthState.error(l)),
       (r) => (r == null)
-          ? emit(AuthState.error("Not Authenticated"))
+          ? emit(const AuthState.error("Not Authenticated"))
           : emit(AuthState.success(r)),
     );
   }
